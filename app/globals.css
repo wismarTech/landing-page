@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+
 @import "tailwindcss";
 
 :root {
@@ -8,8 +11,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: 'Inter', var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: 'Playfair Display', serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +26,55 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Custom Utilities from Original HTML */
+.mesh-gradient {
+  background-color: #ffffff;
+  background-image: radial-gradient(at 80% 0%, hsla(189,100%,56%,0.2) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(242,100%,70%,0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, hsla(343,100%,76%,0.1) 0px, transparent 50%);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* Animations */
+@keyframes float-smooth {
+  0%, 100% { transform: translateY(-50%) rotateX(8deg) rotateY(-12deg); }
+  50% { transform: translateY(-55%) rotateX(10deg) rotateY(-10deg); }
+}
+
+@keyframes float-dashboard {
+  0%, 100% { transform: translateY(0px) rotateY(12deg) scale(0.9); }
+  50% { transform: translateY(15px) rotateY(10deg) scale(0.92); }
+}
+
+.animate-float-phone { animation: float-smooth 8s ease-in-out infinite; }
+.animate-float-dash { animation: float-dashboard 10s ease-in-out infinite reverse; }
+
+@keyframes float-card-elements {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+.animate-float {
+  animation: float-card-elements 6s ease-in-out infinite;
+}
+
+/* Pricing grid background pattern */
+.bg-pricing-grid {
+  background-image: linear-gradient(to right, #f1f5f9 1px, transparent 1px), linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+  background-size: 64px 64px;
 }
