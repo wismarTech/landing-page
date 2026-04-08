@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WismarTech - Premium EdTech Landing Page
 
-## Getting Started
+![WismarTech Logo](/image/wizmar_logo.PNG)
 
-First, run the development server:
+**WismarTech** is a high-performance, aesthetically driven landing page designed for a modern educational technology platform. Built with a focus on premium user experience, interactive storytelling, and technical excellence, it serves as the gateway to a world-class engineering curriculum.
+
+## ✨ Key Features
+
+### 🚀 High-Impact Hero Section
+- **Dynamic Dashboard Mockup**: Real-time data visualization using Chart.js to simulate the student learning experience.
+- **Glassmorphism UI**: High-end translucent elements with subtle glow effects for a modern, pro-tier feel.
+- **Interactive Aura Background**: Custom canvas-based background animations that react to the site's rhythm.
+
+### 📜 Inverted Sticky Scroll (Services)
+- **Advanced UX Pattern**: A unique "walking" content interaction where detailed service blocks scroll on the left while categorical titles remain fixed and highlighted on the right.
+- **Framer Motion Integration**: Perfectly synced scroll triggers using `useInView` for dynamic state transitions.
+
+### 🔐 Premium Authentication Flow
+- **Split-Screen Design**: High-converting, visually balanced Login and Registration pages.
+- **Branded Marketing Pane**: A dedicated side-panel for brand messaging with integrated decorative lighting effects.
+- **Modern Security UI**: Interactive password visibility toggles and social authentication (Google/Apple) integration points.
+
+### 💎 Design & Content
+- **Interactive FAQ**: Minimalist accordion system for streamlined user support.
+- **Student Success stories**: A dedicated testimonials grid featuring glassmorphism cards and smooth hover transitions.
+- **SEO Optimized**: Fully integrated Google Analytics tracking and semantic HTML5 structure for peak search visibility.
+
+## 🛠️ Technology Stack
+
+| Technology | Purpose |
+| :--- | :--- |
+| **Next.js 15 (App Router)** | Core Framework & SSR |
+| **Tailwind CSS** | Utility-first Styling & Design System |
+| **Framer Motion** | Premium Interactions & Animations |
+| **Lucide React** | Consistent Iconography |
+| **Chart.js** | Data Visualization |
+| **TypeScript** | Type-safe Development |
+
+## 🏁 Getting Started
+
+First, install the dependencies:
+
+```bash
+npm install
+# or
+pnpm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📐 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/components/home`: Main landing page sections (Hero, Services, FAQ, Testimonials).
+- `src/components/auths`: Premium login and registration components.
+- `src/ui/reuseable`: Shared layout elements like the Navbar and Footer.
+- `src/lib`: Logic for analytics (`gtag`), theme-safe utilities (`cn`), and data constants.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ by **WismarTech Engineering**
