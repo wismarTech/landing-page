@@ -1,40 +1,27 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { serviceData } from '@/src/lib/data';
 
-// Component for each scrollable content block on the left
-const ServiceContentBlock = ({ 
-  service, 
-  index, 
-  setActiveIndex 
-}: { 
-  service: any, 
-  index: number, 
-  setActiveIndex: (i: number) => void 
+const ServiceContentBlock = ({
+  service,
+  index,
+  sectionRef
+}: {
+  service: any,
+  index: number,
+  sectionRef: (el: HTMLDivElement | null) => void
 }) => {
-  const ref = useRef(null);
-  // Trigger when the block is roughly centered in the viewport
-  const isInView = useInView(ref, { 
-    margin: "-40% 0px -40% 0px"
-  });
-
-  useEffect(() => {
-    if (isInView) {
-      setActiveIndex(index);
-    }
-  }, [isInView, index, setActiveIndex]);
-
   return (
-    <motion.div 
+    <motion.div
       id={`service-${index}`}
-      ref={ref}
+      ref={sectionRef}
       initial={{ opacity: 0.3, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="min-h-[70vh] flex flex-col justify-center py-24 lg:py-48"
+      className="min-h-screen flex flex-col justify-center py-16 lg:py-32"
     >
       <div className="flex items-center gap-6 mb-10">
         <div className="w-16 h-16 rounded-[1.5rem] flex items-center justify-center bg-white border border-slate-200/50 shadow-sm">
@@ -76,13 +63,90 @@ const ServiceContentBlock = ({
   );
 };
 
+// The stacked word on the right. Each word sits absolutely on top of the
+// last one and crossfades + slides in when it becomes active — this is the
+// "stack scroll" look: only one word is ever fully visible at a time.
+const StackWord = ({
+  title,
+  isActive,
+  direction
+}: {
+  title: string;
+  isActive: boolean;
+  direction: 'up' | 'down';
+}) => {
+  return (
+    <AnimatePresence mode="wait">
+      {isActive && (
+        <motion.span
+          key={title}
+          initial={{ opacity: 0, y: direction === 'down' ? 48 : -48 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: direction === 'down' ? -48 : 48 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 flex items-center font-serif font-light text-5xl xl:text-7xl text-slate-900 tracking-tighter leading-[1.05]"
+        >
+          {title}
+        </motion.span>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const Services = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
+  const directionRef = useRef<'up' | 'down'>('down');
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const setSectionRef = useCallback((index: number) => (el: HTMLDivElement | null) => {
+    sectionRefs.current[index] = el;
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      let minDist = Infinity;
+      let newIndex = activeIndexRef.current;
+
+      sectionRefs.current.forEach((ref) => {
+        if (!ref) return;
+        const rect = ref.getBoundingClientRect();
+        const dist = Math.abs(rect.top);
+        if (dist < minDist) {
+          minDist = dist;
+          newIndex = Number(ref.id.replace('service-', ''));
+        }
+      });
+
+      if (newIndex !== activeIndexRef.current) {
+        directionRef.current = newIndex > activeIndexRef.current ? 'down' : 'up';
+        activeIndexRef.current = newIndex;
+        setActiveIndex(newIndex);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <section className="bg-[#eef2f6] relative px-6 lg:px-24 overflow-hidden border-t border-slate-100">
-      {/* Subtle Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+    <section id="courses" className="bg-[#eef2f6] relative px-6 lg:px-24 border-t border-slate-100">
+      {/*
+        IMPORTANT: overflow-hidden must NOT live on this <section>, because
+        this section is the containing block for the sticky right column
+        below. An ancestor with overflow:hidden clips position:sticky
+        elements, which is why the right side was disappearing as you
+        scrolled the left column. The decorative grid is wrapped in its own
+        absolutely-positioned, clipped layer instead, so the section itself
+        stays overflow-visible.
+      */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+        />
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header Block */}
@@ -94,45 +158,54 @@ const Services = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-24 items-start">
-          
+
           {/* Left Block: Scrollable Content Blocks */}
           <div className="relative">
             {serviceData.map((service, index) => (
-              <ServiceContentBlock 
-                key={index} 
-                service={service} 
-                index={index} 
-                setActiveIndex={setActiveIndex} 
+              <ServiceContentBlock
+                key={index}
+                service={service}
+                index={index}
+                sectionRef={setSectionRef(index)}
               />
             ))}
           </div>
 
-          {/* Right Block: Sticky Titles */}
-          <div className="hidden lg:flex sticky top-0 h-screen flex-col justify-center">
-             <div className="space-y-12 pl-16 border-l border-slate-200/50 relative">
-                
-                {serviceData.map((service, index) => (
-                    <motion.div 
-                        key={index}
-                        animate={{
-                            opacity: activeIndex === index ? 1 : 0.1,
-                            scale: activeIndex === index ? 1.05 : 0.95,
-                            x: activeIndex === index ? 20 : 0
-                        }}
-                        transition={{ duration: 0.5, ease: "circOut" }}
-                        className="cursor-default flex items-center group"
-                    >
-                        <div className={`absolute left-[-2px] h-full w-1 rounded-full transition-all duration-700 ${activeIndex === index ? 'bg-[#5B58F6]' : 'bg-transparent'}`}></div>
-                        
-                        <span className={`text-5xl font-serif tracking-tighter block transition-all duration-700 ${activeIndex === index ? 'text-[#5B58F6] font-bold' : 'text-slate-400 font-light italic'}`}>
-                            {service.title}
-                        </span>
-                    </motion.div>
-                ))}
+          {/* Right Block: Sticky stacked title.
+              - Fixed height (h-screen) so it never grows/shrinks and pushes layout.
+              - top-0 + self-start so it sticks to the viewport as the left
+                column scrolls past it.
+              - Each word is absolutely positioned inside a relatively
+                positioned box so words stack on top of one another instead
+                of pushing the layout around when they swap. */}
+          <div className="hidden lg:block sticky top-0 self-start h-screen">
+            <div className="h-full flex flex-col justify-center pl-16 border-l border-slate-200/50 relative">
 
-                {/* Vertical Decorative Element */}
-                <div className="absolute top-0 right-[-10vw] w-96 h-96 bg-indigo-500/5 blur-[120px] rounded-full -z-10"></div>
-             </div>
+              {/* eyebrow: current step index, not decorative — tells the
+                  reader where they are in the sequence */}
+              <span className="text-sm font-medium tracking-[0.2em] uppercase text-slate-400 mb-6">
+                {String(activeIndex + 1).padStart(2, '0')} / {String(serviceData.length).padStart(2, '0')}
+              </span>
+
+              {/* the actual stacked word block — fixed height container,
+                  words crossfade inside it */}
+              <div className="relative h-[9rem] xl:h-[11rem] w-full overflow-hidden">
+                {serviceData.map((service, index) => (
+                  <StackWord
+                    key={index}
+                    title={service.title}
+                    isActive={activeIndex === index}
+                    direction={directionRef.current}
+                  />
+                ))}
+              </div>
+
+              <p className="text-base text-slate-500 font-thin leading-relaxed tracking-tight max-w-md mt-4">
+                {serviceData[activeIndex].summary}
+              </p>
+
+              <div className="absolute top-0 right-[-10vw] w-96 h-96 bg-indigo-500/5 blur-[120px] rounded-full -z-10" />
+            </div>
           </div>
         </div>
       </div>

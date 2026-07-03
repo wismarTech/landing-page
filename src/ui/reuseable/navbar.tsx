@@ -17,10 +17,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Courses', href: '#courses' },
-    { name: 'Bootcamps', href: '#bootcamps' },
-    { name: 'Mentorship', href: '#mentorship' },
-    { name: 'Business', href: '#business' },
+  
+    { name: 'Courses', href: '/#courses' },
+    { name: 'Testimonial', href: '/#testimonial' },
+    { name: 'Contact Us', href: 'contact' },
   ];
 
   return (
@@ -66,6 +66,7 @@ const Navbar = () => {
 
           {/* Right Actions */}
           <div className="flex gap-3 sm:gap-5 items-center ml-auto z-20">
+            {/* Commented out for now
             <Link
               href="/login"
               className="hidden lg:block text-sm font-medium text-slate-600 hover:text-[#5B58F6] transition-colors px-2"
@@ -81,6 +82,7 @@ const Navbar = () => {
               <span className="sm:hidden">Join</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
+            */}
 
             {/* Mobile Burger */}
             <button
@@ -102,7 +104,8 @@ const Navbar = () => {
         >
           <div className="pb-5 pt-2">
             <div className="rounded-3xl border border-slate-200/80 bg-white/90 backdrop-blur-xl shadow-[0_12px_30px_-12px_rgba(15,23,42,0.08)] p-3 flex flex-col gap-1">
-              {[...navLinks, { name: 'Sign In', href: '/login' }].map((link) => (
+              {/* Commented out Sign In in mobile menu */}
+{[...navLinks].map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}

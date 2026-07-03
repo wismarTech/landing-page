@@ -5,34 +5,34 @@ import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    name: "Alex Rivera",
-    role: "Fullstack Engineer @ Vercel",
-    image: "https://i.pravatar.cc/150?u=alex",
-    content: "Wizmar completely changed my career trajectory. The project-based approach allowed me to build a portfolio that stood out in a competitive market.",
-    course: "Full-Stack Mastery",
+    name: "Emmanuel Joshua",
+    role: "Frontend Engineer",
+    image: "https://i.pravatar.cc/150?u=emmanuel-joshua",
+    content: "Wizmar completely changed my career trajectory. The project-based approach let me build a portfolio that stood out in a competitive market — I went from tutorials to shipping real interfaces.",
+    course: "Frontend Engineering",
     rating: 5
   },
   {
-    name: "Sarah Chen",
-    role: "Senior Product Designer",
-    image: "https://i.pravatar.cc/150?u=sarah",
-    content: "The mentorship at Wizmar is second to none. I finally understood the bridge between design theory and production-ready implementation.",
-    course: "UI/UX Design",
+    name: "Mr Victor",
+    role: "Backend Engineer",
+    image: "https://i.pravatar.cc/150?u=mr-victor",
+    content: "The mentorship at Wizmar is second to none. I finally understood how to design APIs and databases that actually hold up under real traffic, not just pass a tutorial checklist.",
+    course: "Backend Engineering",
     rating: 5
   },
   {
-    name: "Michael Ross",
-    role: "AI Ethics Specialist",
-    image: "https://i.pravatar.cc/150?u=michael",
+    name: "Caleb Joshua",
+    role: "Frontend Engineer",
+    image: "https://i.pravatar.cc/150?u=caleb-joshua",
     content: "Complex concepts were broken down into digestible, actionable steps. I landed my dream job just three months after completing the course.",
-    course: "AI Fundamentals",
+    course: "Frontend Engineering",
     rating: 5
-  }
+  },
 ];
 
 const Testimonials = () => {
   return (
-    <section className="py-24 px-6 bg-[#FAFAFA] overflow-hidden relative">
+    <section id="testimonial" className="py-24 px-6 bg-[#FAFAFA] overflow-hidden relative">
       {/* Background Decorative Pattern */}
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none z-0">
          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -84,8 +84,8 @@ const Testimonials = () => {
               </div>
 
               <div className="flex items-center gap-5 border-t border-slate-50 pt-8 relative z-10">
-                <div className="w-16 h-16 rounded-3xl overflow-hidden border-2 border-white shadow-md ring-1 ring-slate-100/50 group-hover:rotate-3 transition-transform duration-500">
-                  <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
+                <div className="w-16 h-16 rounded-3xl overflow-hidden border-2 border-white shadow-md ring-1 ring-slate-100/50 bg-[#5B58F6] flex items-center justify-center group-hover:rotate-3 transition-transform duration-500">
+                  <span className="text-white text-lg font-semibold">{t.name.split(' ').map(n => n[0]).join('')}</span>
                 </div>
                 <div>
                   <h5 className="text-lg font-medium text-slate-900 leading-none mb-1.5">{t.name}</h5>
