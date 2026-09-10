@@ -24,7 +24,7 @@ export default function ContactHero() {
 
         <div className="grid md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto">
           {[
-            { icon: Mail, label: 'Email Us', value: 'wisemanreal3@gmail.com', href: 'mailto:wisemanreal3@gmail.com' },
+            { icon: Mail, label: 'Email Us', value: 'wismartechhubinfo@gmail.com', href: 'mailto:wismartechhubinfo@gmail.com' },
             { icon: MessageSquare, label: 'Live Chat', value: 'Mon–Fri, 9am–6pm', href: '#' },
             { icon: Send, label: 'Phpne Number', value: '+234 706 4543 627', href: '#' },
           ].map((item, i) => (

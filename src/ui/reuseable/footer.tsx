@@ -94,7 +94,7 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-[#5B58F6] shrink-0">
                   <Mail className="w-4 h-4" />
                 </div>
-                <Link href="mailto:wisemanreal3@gmail.com" className="hover:text-slate-900 transition-colors">wisemanreal3@gmail.com</Link>
+                <Link href="mailto:wisemanreal3@gmail.com" className="hover:text-slate-900 transition-colors">wismartechhubinfo@gmail.com</Link>
               </li>
               <li className="flex items-start gap-3 text-sm text-slate-500">
                 <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-[#5B58F6] shrink-0 mt-0.5">
