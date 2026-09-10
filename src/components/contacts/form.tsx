@@ -33,7 +33,7 @@ export default function ContactForm() {
       <div className="max-w-3xl mx-auto">
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
           <div className="grid md:grid-cols-2 gap-6">
-            <div>
+            <div className="min-w-0">
               <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
               <input
                 type="text"
@@ -41,10 +41,10 @@ export default function ContactForm() {
                 id="name"
                 required
                 placeholder="John Doe"
-                className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#5B58F6]/20 focus:border-[#5B58F6] transition-all"
+                className="w-full min-w-0 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#5B58F6]/20 focus:border-[#5B58F6] transition-all"
               />
             </div>
-            <div>
+            <div className="min-w-0">
               <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
               <input
                 type="email"
@@ -52,7 +52,7 @@ export default function ContactForm() {
                 id="email"
                 required
                 placeholder="john@example.com"
-                className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#5B58F6]/20 focus:border-[#5B58F6] transition-all"
+                className="w-full min-w-0 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#5B58F6]/20 focus:border-[#5B58F6] transition-all"
               />
             </div>
           </div>
